@@ -1,0 +1,16 @@
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Infrastructure.Configuration;
+
+public class RoleConfiguration : IEntityTypeConfiguration<Role>
+{
+    public void Configure(EntityTypeBuilder<Role> builder)
+    {
+        builder.ToTable("roles");
+        builder.HasKey(r => r.Id);
+        builder.Property(r => r.Name).IsRequired().HasMaxLength(30);
+        builder.HasIndex(r => r.Name).IsUnique();
+    }
+}
